@@ -1,0 +1,28 @@
+[virtualenvs]
+in-project = true
+path = ".venv"
+
+
+[tool.poetry]
+name = "guruxone-pyserver"
+version = "0.1.0"
+description = "A simple fast-api server for guruxone"
+authors = ["Indika Maligaspe <k.indika.maligaspe@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.114.1"
+SQLAlchemy = "^2.0.34"
+python-dotenv = "^1.0.0"
+pyyaml = "^6.0.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+black = "*"
+pre-commit = "^3.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
