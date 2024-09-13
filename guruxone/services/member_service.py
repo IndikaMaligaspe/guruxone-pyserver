@@ -5,7 +5,7 @@ from ..models import DBAchievement, DBMember, DBPayment
 
 
 def get_db_members(db: Session) -> list[DBMember]:
-    return db.execute(select(DBMember)).scalars()
+    return db.execute(select(DBMember)).scalars().all()
 
 
 def get_db_member_by_id(id: int, db: Session) -> DBMember:

@@ -28,3 +28,13 @@ class Payment(BaseModel):
     description: Optional[str] = None
     paymentMethod: str
     paymentDate: date
+
+
+class MemberAchievements(BaseModel):
+    id: int
+    firstName: str
+    lastName: str
+    phoneNumber: str
+    email: str
+    dateofBirth: date
+    achievements: list[Achievement]
