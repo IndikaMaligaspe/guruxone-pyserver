@@ -20,9 +20,9 @@ def get_db_member_achivements(id: int, db: Session) -> list[DBAchievement]:
         return []
 
 
-def get_db_member_payments(id: int, db: Session) -> list[DBPayment]:
+def get_db_member_payments(id: int, db: Session) -> list[DBPayment] | None:
     member = db.get(DBMember, id)
     if member is not None:
-        return db.get(DBMember, id).payments
+        return member.payments
     else:
-        return []
+        return None
