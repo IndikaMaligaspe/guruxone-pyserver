@@ -20,3 +20,11 @@ class Achievement(BaseModel):
     awardedBy: str
     venue: Optional[str] = None
     dateAwarded: date
+
+
+class Payment(BaseModel):
+    id: int
+    amount: float
+    description: Optional[str] = None
+    paymentMethod: str
+    paymentDate: date

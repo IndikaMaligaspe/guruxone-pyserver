@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from ..models import DBAchievement, DBMember
+from ..models import DBAchievement, DBMember, DBPayment
 
 
 def get_db_members(db: Session) -> list[DBMember]:
@@ -14,3 +14,7 @@ def get_db_member_by_id(id: int, db: Session) -> DBMember:
 
 def get_db_member_achivements(id: int, db: Session) -> list[DBAchievement]:
     return db.get(DBMember, id).achievements
+
+
+def get_db_member_payments(id: int, db: Session) -> list[DBPayment]:
+    return db.get(DBMember, id).payments
