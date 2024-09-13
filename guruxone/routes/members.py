@@ -39,8 +39,8 @@ def get_meber_by_id(id: int, db: Annotated[Session, Depends(get_session)]) -> DB
 def get_member_achievements(
     id: int, db: Annotated[Session, Depends(get_session)]
 ) -> list[DBAchievement]:
-    achievenets = get_db_member_achivements(id, db)
-    if achievenets is None or len(achievenets) == 0:
+    achievenets: list[Achievement] = get_db_member_achivements(id, db)
+    if achievenets is None:
         raise HTTPException(
             status_code=404,
             detail=f"No Achievements for members with the id {id} found.",
@@ -52,8 +52,8 @@ def get_member_achievements(
 def get_member_payments(
     id: int, db: Annotated[Session, Depends(get_session)]
 ) -> list[DBPayment]:
-    payments = get_db_member_payments(id, db)
-    if payments is None or len(payments) == 0:
+    payments: list[Payment] = get_db_member_payments(id, db)
+    if payments is None:
         raise HTTPException(
             status_code=404, detail=f"No Payments for members with the id {id} found."
         )
