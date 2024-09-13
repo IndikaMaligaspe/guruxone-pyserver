@@ -12,9 +12,13 @@ from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
 from .database import SessionLocal
-from .models import DBMember
-from .schema import Member
-from .services.member_service import get_db_member_by_id, get_db_members
+from .models import DBAchievement, DBMember
+from .schema import Achievement, Member
+from .services.member_service import (
+    get_db_member_achivements,
+    get_db_member_by_id,
+    get_db_members,
+)
 
 app = FastAPI()
 
@@ -42,3 +46,15 @@ def get_meber_by_id(id: int, db: Annotated[Session, Depends(get_session)]) -> DB
             status_code=404, detail=f"No Member with the id {id} found."
         )
     return member
+
+
+@app.get("/member/{id}/achievements", response_model=list[Achievement])
+def get_member_achievements(
+    id: int, db: Annotated[Session, Depends(get_session)]
+) -> list[DBAchievement]:
+    achievenets = get_db_member_achivements(id, db)
+    if achievenets is None or len(achievenets) == 0:
+        raise HTTPException(
+            status_code=404, detail=f"No Achievements for with the id {id} found."
+        )
+    return achievenets

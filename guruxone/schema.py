@@ -1,4 +1,5 @@
 from datetime import date
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -10,4 +11,12 @@ class Member(BaseModel):
     phoneNumber: str
     email: str
     dateofBirth: date
-    # achievments:list
+
+
+class Achievement(BaseModel):
+    id: int
+    achievementType: str
+    description: Optional[str] = None
+    awardedBy: str
+    venue: Optional[str] = None
+    dateAwarded: date
