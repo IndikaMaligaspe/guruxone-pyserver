@@ -12,12 +12,12 @@ def get_db_member_by_id(id: int, db: Session) -> DBMember:
     return db.get(DBMember, id)
 
 
-def get_db_member_achivements(id: int, db: Session) -> list[DBAchievement]:
+def get_db_member_achivements(id: int, db: Session) -> list[DBAchievement] | None:
     member = db.get(DBMember, id)
     if member is not None:
-        return db.get(DBMember, id).achievements
+        return member.achievements
     else:
-        return []
+        return None
 
 
 def get_db_member_payments(id: int, db: Session) -> list[DBPayment] | None:
