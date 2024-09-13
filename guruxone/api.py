@@ -9,12 +9,12 @@ from pathlib import Path
 from typing import Annotated
 
 from fastapi import Depends, FastAPI
-from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from .database import SessionLocal
 from .models import DBMember
 from .schema import Member
+from .services.member_service import get_db_members
 
 app = FastAPI()
 
@@ -31,4 +31,4 @@ def get_session() -> Session:  # type: ignore
 
 @app.get("/member", response_model=list[Member])
 def get_all_members(db: Annotated[Session, Depends(get_session)]) -> list[DBMember]:
-    return db.execute(select(DBMember)).scalars()
+    return get_db_members(db)
