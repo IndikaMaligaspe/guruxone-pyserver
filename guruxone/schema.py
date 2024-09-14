@@ -10,6 +10,9 @@ class Member(BaseModel):
     lastName: str
     phoneNumber: str
     email: str
+    gender: str
+    address: str
+    city: str
     dateofBirth: date
 
 
