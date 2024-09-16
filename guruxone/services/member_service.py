@@ -26,3 +26,15 @@ def get_db_member_payments(id: int, db: Session) -> list[DBPayment] | None:
         return member.payments
     else:
         return None
+
+
+def update_db_member(id: int, data: dict, db: Session) -> DBMember | None:
+    member: DBMember = db.get(DBMember, id)
+    if member is not None:
+        for key, val in data.items():
+            setattr(member, key, val) if val else None
+        db.commit()
+        member = db.get(DBMember, id)
+        return member
+    else:
+        return None

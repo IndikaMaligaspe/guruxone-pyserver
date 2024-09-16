@@ -11,6 +11,7 @@ from ..services.member_service import (
     get_db_member_by_id,
     get_db_member_payments,
     get_db_members,
+    update_db_member,
 )
 from .dependancies import get_session
 
@@ -65,3 +66,22 @@ def get_member_payments(
             status_code=404, detail=f"No Payments for members with the id {id} found."
         )
     return payments
+
+
+@router.put("/{id}", response_model=Member)
+def update_member(
+    id: int, member: Member, db: Annotated[Session, Depends(get_session)]
+) -> Optional[DBMember]:
+    print("INSIDE UPDATE --- ")
+    try:
+        updated = update_db_member(id, member.model_dump(), db)
+        if updated is None:
+            raise HTTPException(
+                status_code=404, detail=f"Error while updating member with id {id}."
+            )
+        return updated
+    except Exception as err:
+        print(err)
+        raise HTTPException(
+            status_code=500, detail=f"Error while updating member with id {id}."
+        )
